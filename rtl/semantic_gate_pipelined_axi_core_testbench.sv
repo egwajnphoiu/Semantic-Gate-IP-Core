@@ -3,6 +3,8 @@
  * @author Jonathan Alan Reed
  * @license AGPL 3.0
  * @description Parametric Testbench for Semantic Gate Logic.
+ * @include semantic_gate_pipelined_axi_core.sv
+ * @include semantic_gate_vectors.hex
  */
 
 `timescale 1ns/1ps
