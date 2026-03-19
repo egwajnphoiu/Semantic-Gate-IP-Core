@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manifold Fabricator | Fabrication Suite</title>
+    <style>
+        :root {
+            --metal: #2c2c2e;
+            --wood: #3d2b1f; /* Dark Zebrano */
+            --accent: #0071e3;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        body {
+            background: #000;
+            color: #f5f5f7;
+            font-family: -apple-system, sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cockpit-frame {
+            width: 90vw; height: 85vh; max-width: 1100px;
+            background: linear-gradient(145deg, #111, #000);
+            border: 1px solid #222;
+            border-radius: 40px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9), inset 0 0 40px rgba(255,255,255,0.02);
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            padding: 30px; gap: 30px;
+            position: relative;
+        }
+        /* Wood Trim Detail */
+        .cockpit-frame::before {
+            content: ''; position: absolute; top: 0; left: 320px; bottom: 0; width: 4px;
+            background: linear-gradient(to bottom, var(--wood), #1a110a, var(--wood));
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .window {
+            background: var(--glass);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 25px;
+        }
+        label { font-size: 10px; text-transform: uppercase; color: #666; letter-spacing: 2px; }
+        
+        /* CHANGE 1: Remove up/down spinner buttons */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        input {
+            width: 100%; background: #000; border: 1px solid #333;
+            border-radius: 8px; color: #fff; padding: 12px; margin: 10px 0 20px;
+            font-family: "SF Mono", monospace;
+        }
+        button {
+            background: var(--accent); color: #fff; border: none; padding: 16px;
+            border-radius: 14px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+
+        /* CHANGE 2: Fixed scrolling and overflow behavior */
+        #console {
+            flex-grow: 1; 
+            overflow-y: auto; 
+            font-family: "SF Mono", monospace; 
+            font-size: 11px;
+            color: #888; 
+            padding: 20px; 
+            scrollbar-width: none; /* Hides scrollbar in Firefox */
+            max-height: 100%;
+            white-space: pre-wrap;
+        }
+        #console::-webkit-scrollbar {
+            display: none; /* Hides scrollbar in Chrome/Safari */
+        }
+
+        .status-led { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="cockpit-frame">
+        <aside class="sidebar">
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 18px; letter-spacing: -0.5px; margin: 0;"> SEMANTIC GATE VECTOR FABRICATOR </h2>
+                <span style="font-size: 9px; color: var(--accent);"> semantic_gate_vectors.hex </span>
+            </div>
+            <div class="window">
+                <label>Manifold Dim</label>
+                <input type="number" id="dimInput" value="1536">
+                <label>Noise Floor</label>
+                <input type="text" id="noiseInput" value="0.001">
+                <label>Sample Set</label>
+                <input type="number" id="sampleInput" value="100">
+                <button onclick="generateData()" style="width: 100%;">START FABRICATION</button>
+                <button id="dlBtn" onclick="downloadMEM()" style="width: 100%; margin-top: 10px; background: transparent; border: 1px solid #333; display: none;">EXPORT HEX </button>
+            </div>
+        </aside>
+        <main class="window" style="display: flex; flex-direction: column; padding: 0; overflow: hidden;">
+            <div style="padding: 15px 25px; border-bottom: 1px solid var(--border); font-size: 11px; color: #444;">MANIFOLD_STREAM_OUTPUT</div>
+            <div id="console"></div>
+        </main>
+    </div>
+    <script>
+        let memContent = "";
+        function generateData() {
+            const dim = parseInt(document.getElementById('dimInput').value);
+            const noise = parseFloat(document.getElementById('noiseInput').value);
+            const samples = parseInt(document.getElementById('sampleInput').value);
+            const log = document.getElementById('console');
+            log.innerHTML = `<div style="color:var(--accent)">> Initializing ${dim}D Manifold...</div>`;
+            memContent = `// DIM:${dim} | NOISE:${noise}\n`;
+            for (let i = 0; i < samples * 2; i++) {
+                const isLie = i >= samples;
+                let a = Array.from({length: dim}, () => Math.random() * 0.2);
+                let r = Array.from({length: dim}, () => Math.random() * 0.1);
+                let t = isLie ? Array.from({length: dim}, () => 0.5 + Math.random()) : a.map((v, j) => v + r[j] + (Math.random() * noise));
+                memContent += vecToHex(a) + "\n" + vecToHex(r) + "\n" + vecToHex(t) + "\n";
+                if (i % 20 === 0) {
+                    log.innerHTML += `<div>Vector_Set_${i}: OK</div>`;
+                    log.scrollTop = log.scrollHeight; // Auto-scrolls to the latest entry
+                }
+            }
+            log.innerHTML += `<div style="color:#32d74b">> Fabrication Complete.</div>`;
+            log.scrollTop = log.scrollHeight;
+            document.getElementById('dlBtn').style.display = "block";
+        }
+        function vecToHex(v) { return v.map(x => Math.floor(Math.max(0, Math.min(1, x)) * 65535).toString(16).padStart(4, '0').toUpperCase()).join(" "); }
+        function downloadMEM() {
+            const blob = new Blob([memContent], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = "semantic_gate_vectors.hex"; a.click();
+        }
+    </script>
+</body>
+</html>

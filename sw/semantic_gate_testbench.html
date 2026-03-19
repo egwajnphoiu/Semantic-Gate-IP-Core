@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Semantic Gate | Manifold Integrity Glass</title>
+    <script src="semantic_gate_engine.js"></script>
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --neon-green: #32ff7e;
+            --neon-red: #ff4d4d;
+            --apple-blue: #0071e3;
+        }
+
+        body {
+            background: radial-gradient(circle at top center, #1c1c1e 0%, #000000 100%);
+            color: #f5f5f7;
+            font-family: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        .product-frame {
+            width: 900px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin: 0;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5); /* Inner shadow for depth */
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #86868b;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            font-family: "SF Mono", monospace;
+            text-shadow: 0 0 10px rgba(50, 255, 126, 0.3);
+        }
+
+        .control-bar {
+            display: flex;
+            gap: 15px;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        input[type="number"], input[type="file"] {
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .log-window {
+            background: #000;
+            border-radius: 12px;
+            height: 350px;
+            overflow-y: auto;
+            padding: 20px;
+            border: 1px solid #222;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,1);
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 12px;
+        }
+
+        .entry {
+            padding: 8px 0;
+            border-bottom: 1px solid #111;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fault-row { color: var(--neon-red); background: rgba(255, 77, 77, 0.05); }
+        .clear-row { color: #86868b; }
+        .cal-row { color: var(--apple-blue); }
+
+    </style>
+</head>
+<body>
+
+<div class="product-frame">
+    <header>
+        <h1>SEMANTIC GATE CORE</h1>
+        <div style="color: var(--apple-blue); font-size: 12px; margin-top: 5px;">MANIFOLD INTEGRITY MONITOR</div>
+    </header>
+
+    <div class="control-bar">
+        <input type="number" id="dimInput" value="1536" style="width: 80px;">
+        <input type="file" id="fileInput" style="flex-grow: 1;">
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-label">System Status</div>
+            <div id="gateStatus" class="stat-value" style="color: #444; font-size: 24px;">STANDBY</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Lies Detected</div>
+            <div id="detVal" class="stat-value" style="color: var(--neon-red);">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">False Alarms</div>
+            <div id="faVal" class="stat-value" style="color: #fff;">0</div>
+        </div>
+    </div>
+
+    <div id="log" class="log-window">
+        <div style="color: #444; text-align: center; margin-top: 140px;">Load signal data to initialize...</div>
+    </div>
+</div>
+
+<script>
+    // Integration logic remains the same to ensure hardware fidelity
+    let engine;
+    const log = document.getElementById('log');
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const dim = parseInt(document.getElementById('dimInput').value);
+        engine = new SemanticGateEngine(dim);
+        
+        const reader = new FileReader();
+        reader.onload = (event) => processData(event.target.result);
+        reader.readAsText(e.target.files[0]);
+    });
+
+    function processData(text) {
+        const lines = text.split('\n').filter(l => l.trim() !== "" && !l.startsWith("//"));
+        let detections = 0; let falseAlarms = 0;
+        log.innerHTML = '';
+
+        for (let i = 0; i < lines.length; i += 3) {
+            if (!lines[i+2]) break;
+            const res = engine.processVectorSet(parseHex(lines[i]), parseHex(lines[i+1]), parseHex(lines[i+2]));
+            const sampleIdx = i/3;
+
+            if (res.calibrated) {
+                document.getElementById('gateStatus').innerText = "ARMED";
+                document.getElementById('gateStatus').style.color = "var(--neon-green)";
+                if (sampleIdx >= 100 && res.fault) detections++;
+                if (sampleIdx < 100 && res.fault) falseAlarms++;
+            }
+            updateLog(sampleIdx, res);
+        }
+        document.getElementById('detVal').innerText = detections;
+        document.getElementById('faVal').innerText = falseAlarms;
+    }
+
+    function parseHex(line) { return line.trim().split(/\s+/).map(h => parseInt(h, 16)); }
+
+    function updateLog(idx, res) {
+        const div = document.createElement('div');
+        div.className = 'entry ' + (res.fault ? 'fault-row' : (res.calibrated ? 'clear-row' : 'cal-row'));
+        div.innerHTML = `<span>ID_${idx.toString().padStart(3,'0')}</span> <span>ENERGY: ${Math.floor(res.energy)}</span> <span>${res.calibrated ? (res.fault ? "FAULT" : "PASS") : "CALIBRATING"}</span>`;
+        log.prepend(div);
+    }
+</script>
+</body>
+</html>
