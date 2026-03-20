@@ -1,5 +1,5 @@
 <h1 align="center">
-🛡️ The Semantic Gate IP Core 🛡️
+🛡️ The Semantic |Gate| ✅ IP Core
 </h1>
 
 ### Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression
