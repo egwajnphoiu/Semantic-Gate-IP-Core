@@ -3,7 +3,7 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://opensource.org/licenses/AGPL-3.0) 
 [![Hardware: SystemVerilog](https://img.shields.io/badge/Hardware-SystemVerilog-orange.svg)]()
-[![Sim: JavaScript](https://img.shields.io/badge/Simulation-JavaScript-yellow.svg)]()
+[![Software: JavaScript](https://img.shields.io/badge/Software-JavaScript-yellow.svg)]()
 
 **The Semantic Gate** is a hardware-accelerated monitor designed to bridge the **Semantic Gap** in Large Language Models. Unlike probabilistic software filters that rely on secondary referee AI models, this IP core enforces geometric constraints on embedding manifolds directly at the silicon level, providing a **Deterministic Killswitch** for hallucinations.
 
@@ -11,10 +11,10 @@ By moving from statistical guessing to **Manifold Integrity**, we provide a univ
 
 ---
 
-## 🚀 How it Works
+## ⚙️ How it Works
 The core theory posits that valid logical transitions exist within a structured high-dimensional manifold. The Semantic Gate calculates the **Error Energy ($E$)** of an inference step using the **$L_{1}$ Norm (Manhattan Distance)**:
 
-$$E=\sum_{i=1}^{VECTOR\_DIM}|(\vec{A}_{i}+\vec{R}_{i})-\vec{V}_{i}|$$
+$$E=\sum_{i=1}^{VECTOR-DIM}|(\vec{A}_{i}+\vec{R}_{i})-\vec{V}_{i}|$$
 
 * **PASS ✅**: Error Energy is low ($E < T$); the inference stays on the tracks of the high-dimensional surface.
 * **FAULT ❌**: Error Energy spikes ($E \gg T$); the output is geometrically disconnected, and the Semantic Gate triggers an immediate hardware killswitch.
@@ -26,15 +26,19 @@ The system includes a **Self-Calibration** state machine (WARMUP, CALIBRATION, A
 ## 📦 Deliverables & Package Structure
 This repository contains a full-stack implementation for pre-silicon validation and high-throughput FPGA deployment.
 
-### 🏗️ Hardware Layer (SystemVerilog RTL)
-* `semantic_gate_pipelined_axi_core.sv`: The flagship IP core featuring a multi-stage pipelined accumulator to ensure high-speed processing without long combinational paths.
+### 📟 Hardware Layer (SystemVerilog RTL)
+* `semantic_gate_pipelined_axi_core.sv`: The flagship IP core featuring a multi-stage pipelined accumulator and an integrated **AXI4-Stream Wrapper** to ensure high-speed processing without long combinational paths.
 * `semantic_gate_pipelined_axi_core_testbench.sv`: Comprehensive verification environment used to validate accumulation logic against reference data.
-* **AXI4-Stream Wrapper**: Designed for seamless integration directly onto the data bus of an AI accelerator.
 
-### 💻 Software & Simulation Layer
-* `semantic_gate_engine.js`: A mirrored JavaScript implementation for rapid prototyping and manifold mapping.
+### 💻 Software Layer
+* `semantic_gate_engine.js`: A standalone Logic Engine that performs manifold mapping and geometric threshold analysis; serves as the functional source of truth for cross-layer hardware verification.
 * `semantic_gate_testbench.html`: Web-based cross-validation tool for simulating the gate before hardware commitment.
-* `semantic_gate_vector_fabricator.html`: Tool used to generate 16-bit and 1536-bit fixed-point test vectors for verification.
+
+### 🛠️ Tools
+* `semantic_gate_vector_fabricator.html`: Tool used to generate fixed-point test vectors of variable size for verification.
+
+### 📄 Documentation
+* `The Semantic Gate - Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression.pdf`: Technical manuscript defining the Manifold Sparsity Hypothesis, Error Energy equations, and hardware-level deterministic killswitch logic.
 
 ---
 
