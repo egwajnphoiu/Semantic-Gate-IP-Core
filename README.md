@@ -1,4 +1,7 @@
-# 🛡️ The Semantic Gate IP Core 🛡️
+<h1 align="center">
+🛡️ The Semantic Gate IP Core 🛡️
+</h1>
+
 ### Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://opensource.org/licenses/AGPL-3.0) 
@@ -86,8 +89,11 @@ The JavaScript engine was subjected to two distinct validation tiers to test bot
 
 ---
 
-## ⚖️ Licensing
-This project is released under a **dual-licensing model**:
+## ⚖️ Licensing & Usage
+**The Semantic Gate IP Core** is available under a dual-licensing model to balance community innovation with high-performance industrial needs.
 
-1.  **Open Source**: Distributed under **AGPL 3.0** for independent research, community development, and public use.
-2.  **Commercial**: For industrial-scale integration, proprietary applications, or use-cases requiring an exemption from AGPL reciprocal requirements, **Commercial Licenses** are required. 
+* **Open Source (AGPL-3.0)**: Ideal for public research, open-source infrastructure, and community-driven projects. This license requires that any derivative works or network-hosted versions of the protocol remain open-source.
+* **Commercial License**: Required for closed-source applications, proprietary hardware synthesis (**ASIC/FPGA**), or integration into private enterprise platforms. This license provides an exemption from the AGPL copyleft requirements.
+
+For commercial licensing inquiries, please contact:
+**Licensing Agent** - J.E. Randolph 📧 [700josh.r@gmail.com](mailto:700josh.r@gmail.com)
