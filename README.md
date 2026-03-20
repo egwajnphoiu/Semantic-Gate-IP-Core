@@ -1,5 +1,5 @@
 <h1 align="center">
-🛡️ The Semantic |Gate| ✅ IP Core
+Semantic + |Gate|✅|⛔|＝IP Core
 </h1>
 
 ### Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression
@@ -46,6 +46,7 @@ This repository contains a full-stack implementation for pre-silicon validation 
 
 ### 🛠️ Tools
 * `semantic_gate_vector_fabricator.html`: Tool used to generate fixed-point test vectors of variable size for verification.
+* 🎁 **Bonus!** `Semantic Gate Prompt.pdf`: A customizable engineered prompt that approximates protocol behavior and manifold integrity for rapid testing within your preferred LLM environment.
 
 ### 📄 Documentation
 * `The Semantic Gate - Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression.pdf`: Technical manuscript defining the Manifold Sparsity Hypothesis, Error Energy equations, and hardware-level deterministic killswitch logic.
